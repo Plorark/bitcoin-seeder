@@ -26,11 +26,14 @@ ${NC}"
 
 AGAIN=true
 
+
 printf "\nWelcome to the ${RED}Kore Seeder${NC}... uh... oh, yeah, installer tool.\n"
 sleep 1
 printf "Wow, very cool, such awesome, much easy, many nice\n\n"
-prompts() {
-  sleep 1
+
+while [ "$AGAIN" = true ]
+do
+   sleep 1
   printf "Ok, what is your ${CYAN}dnsseed address?${NC} (like dnsseed.kore.life)\n"
   read dnsseeduri
   printf "Wow, very creative name.\n"
@@ -42,19 +45,18 @@ prompts() {
   sleep 1
   printf "\nSo ${RED}${dnsseeduri}${NC} for the ${CYAN}dnsseed address${NC} and ${RED}${nsuri}${NC} for the ${CYAN}ns address${NC}, right?\n"
 
-while true; do
-    read -p "(Yes/No/Cancel)" yn
-    case $yn in
-        [Yy]* ) AGAIN=false; break;;
-        [Nn]* ) printf "\nWell... Here we go agian...\n"; break;;
-        [Cc]* ) exit;;
-        * ) echo "Please answer yes or no.";
-    esac
+  while true; do
+      read -p "(Yes/No/Cancel)" yn
+      case $yn in
+          [Yy]* ) AGAIN=false; break;;
+          [Nn]* ) printf "\nWell... Here we go again...\n\n"; break;;
+          [Cc]* ) exit;;
+          * ) echo "Please answer yes or no.";
+      esac
+  done
+
 done
-}
-if [ "$AGAIN" = true ] ; then
-  prompts
-fi
+
 
 printf "Finally...\n"
 sleep 1
