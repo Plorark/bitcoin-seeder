@@ -145,6 +145,7 @@ public:
         }
 
         case 'l': {
+         printf("Let's do some logging !!!");
           gLog = true;
           break;
         }
@@ -405,7 +406,7 @@ extern "C" void* ThreadStats(void*) {
   } while(1);
   return nullptr;
 }
-static const string mainnet_seeds[] = {"dnsseed.kore.life", ""};
+static const string mainnet_seeds[] = {"dnsseed.kore.life", "dnsseed2.kore.life", "dnsseed3.kore.life", "dnsseed4.kore.life",};
 static const string testnet_seeds[] = {""};
 static const string *seeds = mainnet_seeds;
 
@@ -483,7 +484,6 @@ int main(int argc, char **argv) {
   }
   if (fDNS && !opts.mbox) {
     fprintf(stderr, "No e-mail address set. Please use -m.\n");
-    exit(1);
   }
   FILE *f = fopen("dnsseed.dat","r");
   if (f) {
