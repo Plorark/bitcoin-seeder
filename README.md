@@ -22,7 +22,7 @@ We prepared a cool script for you to avoid too much work (the easy way), but the
 ### Prerequisites
 
 * A 64bits VPS running Ubuntu (16 recommended)
-* Open the ports 53 (TCP and UDP) and 10743 (TCP and UDP)
+* Open the ports 53 (TCP and UDP), 5353 (TCP and UDP) and 10743 (TCP and UDP)
 * A domain with a an "A" record ponting to your VPS
 * Another domain with only a "NS" record pointing to the previous domain mentioned before
 
