@@ -38,7 +38,7 @@ wget "https://raw.githubusercontent.com/Plorark/kore-seeder/master/auto-install.
 
 While it's an easy way to set everything up, it lacks some features yet:
 * If you restart the VPS you must run the dnsseeder again with  
-`sudo ./dnsseed -h yourdnsseedaddress -n yourvpsaddress -m avoidwarningemail.kore.life -o 127.0.0.1:9050 -i 127.0.0.1:9050 -k 127.0.0.1:9050`
+`run-kore-seeder`
 * It won't restart if it crashes (it shouldn't happen tho)
 
 Those features will be added soon.
