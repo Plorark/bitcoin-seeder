@@ -62,7 +62,7 @@ printf "Finally...\n"
 sleep 1
 printf "\nOk, so let's start...\n\n"
 
-printf "${RED}I\'ll install the dependencies (tor and compilation tools). Please look away (˵ ͡° ͜ʖ ͡°˵) ${NC} \n"
+printf "${RED}I\'ll install the dependencies (tor and compilation tools).\n(˵ ͡° ͜ʖ ͡°˵) Please look away ${NC} \n"
 
 echo "deb https://deb.torproject.org/torproject.org xenial main" | sudo tee -a /etc/apt/sources.list
 echo "deb-src https://deb.torproject.org/torproject.org xenial main" | sudo tee -a /etc/apt/sources.list
@@ -83,12 +83,32 @@ if ! [ "$localrepo" = "kore-seeder" ] ; then
 fi
 
 printf "${RED}\n\nDone. Let's compile everything.${NC}\n"
+sudo chmod 777 ./kore-seeder
 cd kore-seeder
-echo "export PATH=$PWD:\$PATH" >> ~/.bashrc
-source ~/.bashrc
 make
 
+printf "${RED}\n\nCompiled!${NC}\n"
+sleep 1
+printf "${RED}\n\nAdding a shortcut (with some params) for future runnings...${NC}\n"
+sleep 1
+sudo printf "dnsseed -h ${dnsseeduri} -n ${nsuri} -m avoidwarningemail.kore.life -o 127.0.0.1:9050 -i 127.0.0.1:9050 -k 127.0.0.1:9050 -p 5353 &" >> run-kore-seeder
+sudo chmod 777 ./run-kore-seeder
+printf "${RED}\n\nShortcut added${NC}\n"
+
+sleep 1
+printf "${RED}\n\nUsually the seeder needs to run as SU (since only SUs can access port 53).${NC}\n"
+printf "${RED}But I'll help you out on this.${NC}\n"
+sleep 1
+iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-port 5353
+printf "${RED}\nDone, now you can run it on port 5353.${NC}\n"
+printf "${RED}You're welcome.${NC}\n"
+sleep 1
+
+printf "${RED}\n\nAdding this folder to your PATH${NC}\n"
+echo "export PATH=$PWD:\$PATH" >> /root/.bashrc
+sudo source ~/.bashrc
+
 printf "${RED}\n\nAnd finally, let's run it!!!!!!!!${NC}\n"
-sudo ./dnsseed -h ${dnsseeduri} -n ${nsuri} -m avoidwarningemail.kore.life -o 127.0.0.1:9050 -i 127.0.0.1:9050 -k 127.0.0.1:9050 &
+./run-kore-seeder
 printf "\n\nOkay. Done. Bye.\n"
 exit
