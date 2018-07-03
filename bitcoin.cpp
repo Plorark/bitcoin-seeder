@@ -99,7 +99,7 @@ class CNode {
   }
 
   bool ProcessMessage(string strCommand, CDataStream& vRecv) {
-//    printf("%s: RECV %s\n", ToString(you).c_str(), strCommand.c_str());
+    printf("%s: RECV %s\n", ToString(you).c_str(), strCommand.c_str());
     if (strCommand == "version") {
       int64 nTime;
       CAddress addrMe;
@@ -135,9 +135,7 @@ class CNode {
     if (strCommand == "addr" && vAddr) {
       vector<CAddress> vAddrNew;
       vRecv >> vAddrNew;
-      if (gLog) {
-        printf("%s: got %i addresses\n", ToString(you).c_str(), (int)vAddrNew.size());
-      }
+      // printf("%s: got %i addresses\n", ToString(you).c_str(), (int)vAddrNew.size());
       int64 now = time(NULL);
       vector<CAddress>::iterator it = vAddrNew.begin();
       if (vAddrNew.size() > 1) {
@@ -145,17 +143,13 @@ class CNode {
       }
       while (it != vAddrNew.end()) {
         CAddress &addr = *it;
-            if (gLog) {               
-               printf("%s: got address %s\n", ToString(you).c_str(), addr.ToString().c_str(), (int)(vAddr->size()));
-            }
+//        printf("%s: got address %s\n", ToString(you).c_str(), addr.ToString().c_str(), (int)(vAddr->size()));
         it++;
         if (addr.nTime <= 100000000 || addr.nTime > now + 600)
           addr.nTime = now - 5 * 86400;
         if (addr.nTime > now - 604800)
           vAddr->push_back(addr);
-              if (gLog) {
-                printf("%s: added address %s (#%i)\n", ToString(you).c_str(), addr.ToString().c_str(), (int)(vAddr->size()));
-              }
+//        printf("%s: added address %s (#%i)\n", ToString(you).c_str(), addr.ToString().c_str(), (int)(vAddr->size()));
         if (vAddr->size() > 1000) {doneAfter = 1; return true; }
       }
       return false;
@@ -180,17 +174,13 @@ class CNode {
       CMessageHeader hdr;
       vRecv >> hdr;
       if (!hdr.IsValid()) { 
-        if (gLog) {
-         printf("%s: BAD (invalid header)\n", ToString(you).c_str());
-        }
+        // printf("%s: BAD (invalid header)\n", ToString(you).c_str());
         ban = 100000; return true;
       }
       string strCommand = hdr.GetCommand();
       unsigned int nMessageSize = hdr.nMessageSize;
       if (nMessageSize > MAX_SIZE) { 
-         if (gLog) {
-            printf("%s: BAD (message too large)\n", ToString(you).c_str());
-         }
+        // printf("%s: BAD (message too large)\n", ToString(you).c_str());
         ban = 100000;
         return true; 
       }
@@ -208,9 +198,7 @@ class CNode {
       vRecv.ignore(nMessageSize);
       if (ProcessMessage(strCommand, vMsg))
         return true;
-         if (gLog) {            
-            printf("%s: done processing %s\n", ToString(you).c_str(), strCommand.c_str());
-         }
+//      printf("%s: done processing %s\n", ToString(you).c_str(), strCommand.c_str());
     } while(1);
     return false;
   }
