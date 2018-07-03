@@ -3,8 +3,6 @@
 
 using namespace std;
 
-extern bool gLog;
-
 void CAddrInfo::Update(bool good) {
   uint32_t now = time(NULL);
   if (ourLastTry == 0)

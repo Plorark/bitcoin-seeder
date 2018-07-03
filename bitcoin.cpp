@@ -10,8 +10,6 @@
 
 using namespace std;
 
-extern bool gLog;
-
 class CNode {
   SOCKET sock;
   CDataStream vSend;
