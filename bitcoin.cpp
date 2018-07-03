@@ -196,7 +196,7 @@ class CNode {
       vRecv.ignore(nMessageSize);
       if (ProcessMessage(strCommand, vMsg))
         return true;
-      printf("%s: done processing %s\n", ToString(you).c_str(), strCommand.c_str());
+//      printf("%s: done processing %s\n", ToString(you).c_str(), strCommand.c_str());
     } while(1);
     return false;
   }
